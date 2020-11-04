@@ -1,0 +1,67 @@
+
+.card {
+  width: 100% !important;
+  color: #163a62 !important;
+  overflow: hidden !important;
+
+}
+
+.seg {
+  margin-top: 3rem !important;
+
+}
+.App {
+  background-color: #2f7ca4!important;
+  min-height: 100vh;
+  min-width: 100vw ;
+}
+a {
+  text-decoration: none !important;
+  color: white !important;
+}
+a:hover {
+  color: #00b5ad !important;
+}
+
+@media(max-width: 600px) {
+  .seg {
+    padding: 15px !important;
+  }
+  .seg h4{
+    font-size: .70rem;
+  }
+  .seg .flex-column {
+    padding-right: 0 !important;
+    margin: auto !important;
+  }
+  .seg i {
+    font-size: 20px !important;
+    padding-right: 5px !important;
+  }
+  .navbar h2 {
+    font-size: 1.5em !important;
+  }
+  h1{
+    font-size: 1.8em !important;
+  }
+  h3 {
+    margin-top: 1rem !important;
+    font-size: 1.3em !important;
+  }
+  h2 {
+    font-size: 1.6em !important;
+  }
+  .container-fluid {
+    height: 4.5rem !important;
+  }
+}
+
+@media(min-width:768px) and (max-width: 768px) {
+  .container-fluid {
+    height: 13.3rem !important;
+  }
+  .seg h4{
+    font-size: 1.3rem;
+    margin-bottom: 0 !important;
+  }
+}

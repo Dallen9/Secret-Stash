@@ -1,0 +1,11 @@
+#footerContainer {
+    position: fixed; 
+    bottom: 0;
+    overflow: hidden;
+}
+ 
+@media(max-width: 600px) {
+    #footerContainer{
+        position: relative;
+    }
+}
