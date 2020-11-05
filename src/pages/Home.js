@@ -95,7 +95,7 @@ const Home = () => {
                                 <Segment raised padded className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h3 className='mb-0'>{loading ? loader() : password}</h3>
+                                            <h4 className='mb-0'>{loading ? loader() : password}</h4>
                                         </Col>
                                         <Col xs={2} md={1}>
                                         <span>
