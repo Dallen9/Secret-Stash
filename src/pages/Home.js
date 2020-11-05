@@ -35,7 +35,6 @@ const Home = () => {
                 'Content-Type': 'application/json'
             }
         }
-        
         try {
             const res = await Api.post('create', pw , config)
             setUserPassword({
@@ -89,14 +88,14 @@ const Home = () => {
                     <Row className='d-flex '>
                         <Col xs className='d-flex justify-content-center'>
                             <Card.Description style={{color: '#163a62'}}>
-                                <h3 className='mt-3'>
+                                <h2 className='mt-3'>
                                     Use our tool to create the world's strongest password with just
                                     a click
-                                </h3>
+                                </h2>
                                 <Segment raised padded className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h4 className='mb-0'>{loading ? loader() : password}</h4>
+                                            <h3 className='mb-0'>{loading ? loader() : password}</h3>
                                         </Col>
                                         <Col xs={2} md={1}>
                                         <span>
@@ -108,18 +107,18 @@ const Home = () => {
                                 <Button color='violet' onClick={() => generatePW()}>Generate Password</Button>  
                                 <h2 className='mt-5'>Secure your existing password</h2>
                                 <Divider />
-                                <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}>
-                                    <Form.Field 
-                                    label='Password'
-                                    name="password"
-                                    type='text'
-                                    placeholder='Enter Password'
-                                    value={userPassword.password}
-                                    onChange={onChange}
-                                    control={Input}
-                                    />
+                                <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}> 
+                                        <Form.Field
+                                        label='Password' 
+                                        name="password"
+                                        type='text'
+                                        placeholder='Enter Password'
+                                        value={userPassword.password}
+                                        onChange={onChange}
+                                        control={Input}
+                                        /> 
                                 <Button color='violet' type='submit'>Secure password</Button>
-                                <Button color='teal' type='button' onClick={() =>  navigator.clipboard.writeText(userPassword.password)}>Copy</Button>
+                                <Button style={{backgroundColor:'#2F7CA4', color: 'white'}} type='button' onClick={() =>  navigator.clipboard.writeText(userPassword.password)}>Copy</Button>
                                 </Form> 
                             </Card.Description>
                         </Col>

@@ -5,7 +5,14 @@
     {
       "src": "android-chrome-192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable_icon.png",
+      "type": "image/png",
+      "sizes": "349x349",
+      "purpose": "maskable"
     },
     {
       "src": "android-chrome-512x512.png",
@@ -13,8 +20,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
+  "scope": "/",
   "theme_color": "#2f7ca4",
   "background_color": "#2f7ca4"
 }
