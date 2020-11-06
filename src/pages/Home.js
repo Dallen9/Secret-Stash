@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
-import {Container, Row, Col, Alert, Spinner} from 'react-bootstrap';
+import {Container, Row, Col, Alert} from 'react-bootstrap';
 import Api from '../util/Api';
 
 const Home = () => {
