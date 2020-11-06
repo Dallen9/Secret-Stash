@@ -172,7 +172,7 @@ const Home = () => {
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(newPassword)}/>
+                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(newPassword.password)}/>
                                         </span>
                                         </Col>
                                     </Row>
