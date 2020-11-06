@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
 import {Container, Row, Col, Alert} from 'react-bootstrap';
 import Api from '../util/Api';
@@ -12,14 +12,11 @@ const Home = () => {
         password: ''
     })
     const [password, setPassword] = useState('');
+    const [click, setClick] = useState(false);
+    const [clickPw, setClickPw] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     
-    useEffect(() => {
-        if (!error) {
-            generatePW()
-        } 
-    }, [error]);
 
     const generatePW = async () => {
         try {
@@ -114,7 +111,7 @@ const Home = () => {
                                 <Segment raised padded className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h3 className='mb-0'>{loading ? load() : password}</h3>
+                                            <h3 className='mb-0'>{loading && click ? load() : password }</h3>
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
@@ -123,7 +120,7 @@ const Home = () => {
                                         </Col>
                                     </Row>
                                 </Segment>
-                                <Button color='violet' onClick={() => generatePW()}>Generate Password</Button>  
+                                <Button color='violet'  onClick={() => generatePW() && setClick(true)}>Generate Password</Button>  
                                 <h3 className='mt-5'>Secure your existing password</h3>
                                 <Divider />
                                 <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}> 
@@ -163,18 +160,18 @@ const Home = () => {
                                             </Col>
                                         </Row>
                                    
-                                <Button color='violet' type='submit'>Secure password</Button>
+                                <Button color='violet' type='submit' onClick={() => setClickPw(true)}>Secure password</Button>
                                 </Form>
                                 <div className='my-5'>
                                     <h3>New Password</h3>
                                 <Segment raised padded className='seg mx-auto mt-4'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h3 >{loading && !newPassword ? load() : newPassword.password}</h3>
+                                            <h3>{loading && clickPw ? load() : newPassword.password}</h3>
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(newPassword)}/>
+                                            <Icon size='big' link='/' name='copy outline' onClick={() => navigator.clipboard.writeText(newPassword)}/>
                                         </span>
                                         </Col>
                                     </Row>
