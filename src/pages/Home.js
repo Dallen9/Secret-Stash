@@ -73,13 +73,6 @@ const Home = () => {
             </Alert>
         )
     }
-    const loader = () => {
-        return (
-            <Spinner className='d-flex mx-auto' animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
-        )
-    }
     const load = () => {
         return (
         <Dimmer active inverted className='d-flex'>
