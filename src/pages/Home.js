@@ -114,11 +114,7 @@ const Home = () => {
                                 <Segment raised padded className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
-<<<<<<< HEAD
-                                            <h4 className='mb-0'>{loading ? loader() : password}</h4>
-=======
                                             <h3 className='mb-0'>{loading ? load() : password}</h3>
->>>>>>> dev
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
