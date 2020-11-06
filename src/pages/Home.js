@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import {Card, Button, Form, Divider, Input, Segment, Icon}  from 'semantic-ui-react';
+import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
 import {Container, Row, Col, Alert, Spinner} from 'react-bootstrap';
 import Api from '../util/Api';
 
 const Home = () => {
     const [userPassword, setUserPassword] = useState({
-        password: ''
+        password: '',
+        salt: ''
     });
+    const [newPassword, setNewPassword] = useState({
+        password: ''
+    })
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -15,7 +19,7 @@ const Home = () => {
         if (!error) {
             generatePW()
         } 
-    }, [loading, error]);
+    }, [error]);
 
     const generatePW = async () => {
         try {
@@ -29,25 +33,39 @@ const Home = () => {
             setLoading(false)
         }
     }
-    const hashPW = async (pw) => {
+ 
+
+    const hashCustomPW = async (pw) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
         try {
-            const res = await Api.post('create', pw , config)
+            const res = await Api.post('custom', pw , config)
+            
+            setNewPassword({
+                password: res.data.password,
+             })
             setUserPassword({
-                password: res.data.password
+                password: res.data.password,
+                salt: res.data.salt
             })
-            setError(false)
+            if(newPassword !== null) {
+                setUserPassword({
+                    password: '',
+                    salt: ''
+                })
+            }  
             setLoading(false)
+            setError(false)
         } catch (err) {
             console.error(err)
             setError(true)
             setLoading(false)
         }
     }
+    
     const errorMessage = () => {
         return (
             <Alert variant='danger'>
@@ -55,28 +73,29 @@ const Home = () => {
             </Alert>
         )
     }
-    const loader = () => {
+    const load = () => {
         return (
-            <Spinner className='d-flex mx-auto' animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
+        <Dimmer active inverted className='d-flex'>
+            <Loader size='tiny' inverted className='mx-auto'>Loading</Loader>
+        </Dimmer>
         )
     }
     const onChange = (e) => {
-        setUserPassword({ 
+        setUserPassword({
+            ...userPassword,
             [e.target.name] : e.target.value
         })
     }
     const onSubmit = (e) => {
         e.preventDefault();
         if(userPassword.password !== '') {
-            hashPW(userPassword)
-        }
+            hashCustomPW(userPassword)
+        }         
     }
     return (
-        <Container className='py-5'>
+        <Container className='my-5'>
             <Card >
-                <Card.Content style={{margin: '3rem 0'}}>
+                <Card.Content style={{margin: '2rem 0', paddingBottom:'0'}}>
                     <Row className='d-flex'>
                         <Col xs className='mx-auto'>
                         <Card.Header> 
@@ -95,9 +114,13 @@ const Home = () => {
                                 <Segment raised padded className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column mx-auto'>
+<<<<<<< HEAD
                                             <h4 className='mb-0'>{loading ? loader() : password}</h4>
+=======
+                                            <h3 className='mb-0'>{loading ? load() : password}</h3>
+>>>>>>> dev
                                         </Col>
-                                        <Col xs={2} md={1}>
+                                        <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
                                             <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(password)}/>
                                         </span>
@@ -105,21 +128,60 @@ const Home = () => {
                                     </Row>
                                 </Segment>
                                 <Button color='violet' onClick={() => generatePW()}>Generate Password</Button>  
-                                <h2 className='mt-5'>Secure your existing password</h2>
+                                <h3 className='mt-5'>Secure your existing password</h3>
                                 <Divider />
                                 <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}> 
-                                        <Form.Field
-                                        label='Password' 
-                                        name="password"
-                                        type='text'
-                                        placeholder='Enter Password'
-                                        value={userPassword.password}
-                                        onChange={onChange}
-                                        control={Input}
-                                        /> 
+                                        <Form.Field required>
+                                            <label>Password</label>
+                                            <Input 
+                                            name="password"
+                                            type='password'
+                                            placeholder='Enter Password'
+                                            value={userPassword.password}
+                                            onChange={onChange}
+                                        />
+                                        </Form.Field>
+                                        <Row className='d-flex mb-3'>
+                                            <Col xs={10} lg={11} className='pr-0'>
+                                            <Form.Field>
+                                        <label>Salt</label>
+                                            <Input 
+                                            name="salt"
+                                            type='text'
+                                            placeholder='Enter Salt'
+                                            value={userPassword.salt}
+                                            onChange={onChange}
+                                        />
+                                        </Form.Field> 
+                                            </Col>
+                                            <Col xs={2} md={1} className='mt-4 mb-0 pl-0' >
+                                            
+                                        <Popup 
+                                           
+                                            trigger={<Icon style={{float: 'right'}}  name='question circle outline' size='large' />}
+                                            content="Salt extends the password's hash and transforms it into a unique password by adding 
+                                            another layer of security on top of what you have already entered."
+                                        />
+                                            </Col>
+                                        </Row>
+                                   
                                 <Button color='violet' type='submit'>Secure password</Button>
-                                <Button style={{backgroundColor:'#2F7CA4', color: 'white'}} type='button' onClick={() =>  navigator.clipboard.writeText(userPassword.password)}>Copy</Button>
-                                </Form> 
+                                </Form>
+                                <div className='my-5'>
+                                    <h3>New Password</h3>
+                                <Segment raised padded className='seg mx-auto mt-4'>
+                                    <Row >
+                                        <Col  xs={10} lg={11} className='flex-column mx-auto'>
+                                            <h3 >{loading && !newPassword ? load() : newPassword.password}</h3>
+                                        </Col>
+                                        <Col xs={2} md={1} className='flex-column mx-auto'>
+                                        <span>
+                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(newPassword)}/>
+                                        </span>
+                                        </Col>
+                                    </Row>
+                                </Segment> 
+                                </div> 
                             </Card.Description>
                         </Col>
                     </Row>  

@@ -8,6 +8,9 @@
   margin-top: 3rem !important;
 
 }
+.seg h3 {
+  font-size: 1.5em ;
+}
 .App {
   background-color: #2f7ca4!important;
   min-height: 100vh;
@@ -25,8 +28,8 @@ a:hover {
   .seg {
     padding: 15px !important;
   }
-  .seg h4{
-    font-size: .70rem;
+  .seg h3{
+    font-size: .65em !important;
   }
   .seg .flex-column {
     padding-right: 0 !important;
@@ -58,7 +61,7 @@ a:hover {
   .container-fluid {
     height: 13.3rem !important;
   }
-  .seg h4{
+  .seg h3{
     font-size: 1.3rem;
     margin-bottom: 0 !important;
   }
