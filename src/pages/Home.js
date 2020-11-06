@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
-import {Container, Row, Col, Alert, Spinner} from 'react-bootstrap';
+import {Container, Row, Col, Alert} from 'react-bootstrap';
 import Api from '../util/Api';
 
 const Home = () => {
@@ -128,10 +128,11 @@ const Home = () => {
                                 <Divider />
                                 <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}> 
                                         <Form.Field required>
-                                            <label>Password</label>
+                                            <label for='password'>Password</label>
                                             <Input 
                                             name="password"
                                             type='password'
+                                            id='password'
                                             placeholder='Enter Password'
                                             value={userPassword.password}
                                             onChange={onChange}
@@ -140,9 +141,10 @@ const Home = () => {
                                         <Row className='d-flex mb-3'>
                                             <Col xs={10} lg={11} className='pr-0'>
                                             <Form.Field>
-                                        <label>Salt</label>
+                                            <label for='salt'>Salt</label>
                                             <Input 
                                             name="salt"
+                                            id='salt'
                                             type='text'
                                             placeholder='Enter Salt'
                                             value={userPassword.salt}
