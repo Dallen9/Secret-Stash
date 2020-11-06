@@ -1,11 +1,22 @@
 #footerContainer {
-    position: fixed; 
+    /* position: fixed;  */
     bottom: 0;
     overflow: hidden;
 }
  
-@media(max-width: 600px) {
+@media(min-width: 600px) and (max-width: 768px) {
     #footerContainer{
         position: relative;
+    }
+}
+@media(min-width: 1024px) and (max-width: 1024px) {
+    #footerContainer{
+        position: fixed;
+        /* margin-top: 0 !important; */
+        height: 5rem !important;
+        align-content: center !important;
+    }
+    #footerContainer .row {
+        height: 4rem !important
     }
 }
