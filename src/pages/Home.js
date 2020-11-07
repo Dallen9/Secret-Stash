@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
 import {Container, Row, Col, Alert} from 'react-bootstrap';
 import Api from '../util/Api';
+import CopiedComponent from '../components/CopiedComponent';
 
 const Home = () => {
     const [userPassword, setUserPassword] = useState({
@@ -16,6 +17,9 @@ const Home = () => {
     const [clickPw, setClickPw] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [copy, setCopy] = useState(false);
+    const [show, setShow] = useState(false);
+
     
 
     const generatePW = async () => {
@@ -62,6 +66,13 @@ const Home = () => {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCopy(false)
+            setShow(false)
+        }, 500)
+    }, [show, copy])
     
     const errorMessage = () => {
         return (
@@ -115,7 +126,10 @@ const Home = () => {
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(password)}/>
+                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  { 
+                                                setCopy(true) 
+                                                setShow(true)
+                                                return navigator.clipboard.writeText(password)}}/>
                                         </span>
                                         </Col>
                                     </Row>
@@ -160,7 +174,9 @@ const Home = () => {
                                             </Col>
                                         </Row>
                                    
-                                <Button color='violet' type='submit' onClick={() => setClickPw(true)}>Secure password</Button>
+                                <Button color='violet' type='submit' onClick={() => { 
+                                    setCopy(true)
+                                    return setClickPw(true)}}>Secure password</Button>
                                 </Form>
                                 <div className='my-5'>
                                     <h3>New Password</h3>
@@ -171,7 +187,10 @@ const Home = () => {
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
                                         <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  navigator.clipboard.writeText(newPassword.password)}/>
+                                            <Icon size='big' link='/' name='copy outline' onClick={() => { 
+                                                 setCopy(true) 
+                                                 setShow(true)
+                                                return navigator.clipboard.writeText(newPassword.password)}}/>
                                         </span>
                                         </Col>
                                     </Row>
@@ -182,6 +201,7 @@ const Home = () => {
                     </Row>  
                 </Card.Content>  
            </Card>
+           <CopiedComponent show={show} />
         </Container>
     )
 }
