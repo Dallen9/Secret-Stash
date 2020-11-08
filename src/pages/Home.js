@@ -184,7 +184,7 @@ const Home = () => {
                                                 />
                                             </Form.Field> 
                                         </Col>
-                                        <Col xs={2} md={1} className='mt-4 mb-0 pl-0'>
+                                        <Col xs={2} md={1} className='mt-4 pl-0'>
                                             <Popup 
                                                 trigger={
                                                     <Icon 
