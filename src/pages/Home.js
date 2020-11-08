@@ -186,7 +186,13 @@ const Home = () => {
                                         </Col>
                                         <Col xs={2} md={1} className='mt-4 mb-0 pl-0'>
                                             <Popup 
-                                                trigger={<Icon style={{float: 'right'}}  name='question circle outline' size='large' />}
+                                                trigger={
+                                                    <Icon 
+                                                    style={{float: 'right'}}  
+                                                    name='question circle outline' 
+                                                    size='large' 
+                                                    />
+                                                }
                                                 content="Salt extends the password's hash and transforms it into a unique password by adding 
                                                 another layer of security on top of what you have already entered."
                                             />
@@ -197,7 +203,7 @@ const Home = () => {
                                 </Form>
                                 <div className='my-5'>
                                     <h3>New Password</h3>
-                                <Segment raised size='huge' className='seg mx-auto mt-4'>
+                                <Segment raised size='huge' className='seg mx-auto'>
                                     <Row >
                                         <Col  xs={10} lg={11} className='flex-column m-auto'>
                                             {loading && clickPw && newPassword.password !== null ? load() : <strong>{newPassword.password}</strong>}
