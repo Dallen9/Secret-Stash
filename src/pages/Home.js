@@ -224,6 +224,7 @@ const Home = () => {
                                             onClose={copiedSecureClose}
                                             onOpen={copiedSecureOpen}
                                             position='bottom right'
+                                            size='tiny'
                                         />
                                         </Col>
                                     </Row>
