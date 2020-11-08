@@ -1,15 +1,9 @@
-
 .card {
   width: 100% !important;
   overflow: hidden !important;
 }
-
 .seg {
   margin-top: 3rem !important;
-
-}
-.seg h3 {
-  font-size: 1.5em ;
 }
 .App {
   background-color: #2f7ca4!important;
@@ -24,45 +18,36 @@ a:hover {
   color: #2F7CA4 !important;
 }
 
-@media(max-width: 600px) {
-  .seg {
-    padding: 15px !important;
-  }
-  .seg h3{
-    font-size: .65em !important;
-  }
-  .seg .flex-column {
-    padding-right: 0 !important;
-    margin: auto !important;
-  }
-  .seg i {
-    font-size: 20px !important;
-    padding-right: 5px !important;
-  }
-  .navbar h2 {
-    font-size: 1.5em !important;
-  }
-  h1{
-    font-size: 1.8em !important;
-  }
-  h3 {
-    margin-top: 1rem !important;
-    font-size: 1.3em !important;
-  }
-  h2 {
-    font-size: 1.35em !important;
-  }
-  .container-fluid {
-    height: 4.5rem !important;
-  }
-}
+@media (max-width: 600px) {
+  body { 
+     font-size: 70%; 
+     line-height: 1.4 !important;
 
+    }
+    h1{
+      font-size: 1.8em !important;
+    }
+    h3 {
+      margin-top: 1rem !important;
+      font-size: 1.3em !important;
+    }
+    h2 {
+      font-size: 1.35em !important;
+    } 
+    .seg  {
+      font-size: 2.2vw !important;
+    }
+    .segment {
+      padding: 15px !important
+     
+    }
+    .seg i {
+      font-size: 20px !important;
+      padding-right: 0 !important;
+    } 
+}
 @media(min-width:768px) and (max-width: 768px) {
-  .container-fluid {
-    height: 13.3rem !important;
-  }
-  .seg h3{
-    font-size: 1.3rem;
-    margin-bottom: 0 !important;
+  .seg {
+    font-size: 2.1vw !important;
   }
 }

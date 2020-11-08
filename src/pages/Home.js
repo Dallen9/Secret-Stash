@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react'
-import {Card, Button, Form, Divider, Segment, Icon, Input, Dimmer, Loader, Popup}  from 'semantic-ui-react';
+import React, {useState} from 'react'
+import {Card, Button, Form, Divider, Segment, Icon, Input, Loader, Popup}  from 'semantic-ui-react';
 import {Container, Row, Col, Alert} from 'react-bootstrap';
 import Api from '../util/Api';
-import CopiedComponent from '../components/CopiedComponent';
 
 const Home = () => {
     const [userPassword, setUserPassword] = useState({
@@ -17,10 +16,29 @@ const Home = () => {
     const [clickPw, setClickPw] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [copy, setCopy] = useState(false);
-    const [show, setShow] = useState(false);
+    const [copyRandom, setCopyRandom] = useState(false);
+    const [copySecure, setCopySecure] = useState(false);
 
-    
+    const handleOpen = () => {
+        setCopyRandom(true)
+        setTimeout(() => {
+                setCopyRandom(false)
+        }, 2500)
+    }
+    const copiedSecureOpen = () => {
+        setCopySecure(true)
+        setTimeout(() => {
+            setCopySecure(false)
+        }, 2500)
+    }
+    const copiedSecureClose = () => {
+        setCopySecure(false)
+        clearTimeout()
+    }
+    const handleClose = () => {
+        setCopyRandom(false)
+         clearTimeout()
+    }
 
     const generatePW = async () => {
         try {
@@ -35,7 +53,6 @@ const Home = () => {
         }
     }
  
-
     const hashCustomPW = async (pw) => {
         const config = {
             headers: {
@@ -67,13 +84,6 @@ const Home = () => {
         }
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setCopy(false)
-            setShow(false)
-        }, 500)
-    }, [show, copy])
-    
     const errorMessage = () => {
         return (
             <Alert variant='danger'>
@@ -83,9 +93,9 @@ const Home = () => {
     }
     const load = () => {
         return (
-        <Dimmer active inverted className='d-flex'>
-            <Loader size='tiny' inverted className='mx-auto'>Loading</Loader>
-        </Dimmer>
+            <>
+            <Loader active size='small'  >Loading</Loader>
+            </>
         )
     }
     const onChange = (e) => {
@@ -119,18 +129,29 @@ const Home = () => {
                                     Use our tool to create the world's strongest password with just
                                     a click
                                 </h2>
-                                <Segment raised padded className='seg mx-auto'>
+                                <Segment raised size='huge' className='seg mx-auto'>
                                     <Row >
-                                        <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h3 className='mb-0'>{loading && click ? load() : password }</h3>
+                                        <Col  xs={10} lg={11} className='flex-column m-auto'>
+                                            {loading && click ? load() : <strong>{password}</strong>}
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
-                                        <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() =>  { 
-                                                setCopy(true) 
-                                                setShow(true)
-                                                return navigator.clipboard.writeText(password)}}/>
-                                        </span>
+                                        <Popup
+                                            trigger={
+                                                <Icon 
+                                                size='large' 
+                                                link='/' 
+                                                name='copy outline' 
+                                                onClick={() => navigator.clipboard.writeText(password)}
+                                                />
+                                            }
+                                            content={'Copied!'}
+                                            on='click'
+                                            open={copyRandom}
+                                            onClose={handleClose}
+                                            onOpen={handleOpen}
+                                            position='bottom right'
+                                            size='tiny'
+                                        />
                                         </Col>
                                     </Row>
                                 </Segment>
@@ -138,60 +159,66 @@ const Home = () => {
                                 <h3 className='mt-5'>Secure your existing password</h3>
                                 <Divider />
                                 <Form style={{marginTop: '2rem'}}  onSubmit={onSubmit}> 
-                                        <Form.Field required>
-                                            <label for='password'>Password</label>
-                                            <Input 
-                                            name="password"
-                                            type='password'
-                                            id='password'
-                                            placeholder='Enter Password'
-                                            value={userPassword.password}
-                                            onChange={onChange}
-                                        />
-                                        </Form.Field>
-                                        <Row className='d-flex mb-3'>
-                                            <Col xs={10} lg={11} className='pr-0'>
+                                    <Form.Field required>
+                                        <label for='password'>Password</label>
+                                        <Input 
+                                        name="password"
+                                        type='password'
+                                        id='password'
+                                        placeholder='Enter Password'
+                                        value={userPassword.password}
+                                        onChange={onChange}
+                                    />
+                                    </Form.Field>
+                                    <Row className='d-flex mb-3'>
+                                        <Col xs={10} lg={11} className='pr-0'>
                                             <Form.Field>
-                                            <label for='salt'>Salt</label>
-                                            <Input 
-                                            name="salt"
-                                            id='salt'
-                                            type='text'
-                                            placeholder='Enter Salt'
-                                            value={userPassword.salt}
-                                            onChange={onChange}
-                                        />
-                                        </Form.Field> 
-                                            </Col>
-                                            <Col xs={2} md={1} className='mt-4 mb-0 pl-0' >
-                                            
-                                        <Popup 
-                                           
-                                            trigger={<Icon style={{float: 'right'}}  name='question circle outline' size='large' />}
-                                            content="Salt extends the password's hash and transforms it into a unique password by adding 
-                                            another layer of security on top of what you have already entered."
-                                        />
-                                            </Col>
-                                        </Row>
-                                   
+                                                <label for='salt'>Salt</label>
+                                                <Input 
+                                                name="salt"
+                                                id='salt'
+                                                type='text'
+                                                placeholder='Enter Salt'
+                                                value={userPassword.salt}
+                                                onChange={onChange}
+                                                />
+                                            </Form.Field> 
+                                        </Col>
+                                        <Col xs={2} md={1} className='mt-4 mb-0 pl-0'>
+                                            <Popup 
+                                                trigger={<Icon style={{float: 'right'}}  name='question circle outline' size='large' />}
+                                                content="Salt extends the password's hash and transforms it into a unique password by adding 
+                                                another layer of security on top of what you have already entered."
+                                            />
+                                        </Col>
+                                    </Row>
                                 <Button color='violet' type='submit' onClick={() => { 
-                                    setCopy(true)
                                     return setClickPw(true)}}>Secure password</Button>
                                 </Form>
                                 <div className='my-5'>
                                     <h3>New Password</h3>
-                                <Segment raised padded className='seg mx-auto mt-4'>
+                                <Segment raised size='huge' className='seg mx-auto mt-4'>
                                     <Row >
-                                        <Col  xs={10} lg={11} className='flex-column mx-auto'>
-                                            <h3>{loading && clickPw ? load() : newPassword.password}</h3>
+                                        <Col  xs={10} lg={11} className='flex-column m-auto'>
+                                            {loading && clickPw && newPassword.password !== null ? load() : <strong>{newPassword.password}</strong>}
                                         </Col>
                                         <Col xs={2} md={1} className='flex-column mx-auto'>
-                                        <span>
-                                            <Icon size='big' link='/' name='copy outline' onClick={() => { 
-                                                 setCopy(true) 
-                                                 setShow(true)
-                                                return navigator.clipboard.writeText(newPassword.password)}}/>
-                                        </span>
+                                        <Popup
+                                            trigger={
+                                                <Icon 
+                                                size='large' 
+                                                link='/' 
+                                                name='copy outline' 
+                                                onClick={() => navigator.clipboard.writeText(newPassword.password)}
+                                                />
+                                            }
+                                            content={'Copied!'}
+                                            on='click'
+                                            open={copySecure}
+                                            onClose={copiedSecureClose}
+                                            onOpen={copiedSecureOpen}
+                                            position='bottom right'
+                                        />
                                         </Col>
                                     </Row>
                                 </Segment> 
@@ -201,7 +228,6 @@ const Home = () => {
                     </Row>  
                 </Card.Content>  
            </Card>
-           <CopiedComponent show={show} />
         </Container>
     )
 }
