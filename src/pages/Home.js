@@ -93,9 +93,13 @@ const Home = () => {
     }
     const load = () => {
         return (
-            <>
-            <Loader active size='small'  >Loading</Loader>
-            </>
+            <div>
+                <Row className='align-items-center mt-auto'>
+                    <Col >
+                        <Loader  active size='small'>Loading</Loader>
+                    </Col>
+                </Row>
+            </div>
         )
     }
     const onChange = (e) => {
