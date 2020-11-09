@@ -111,7 +111,7 @@ const Home = () => {
         }         
     }
     return (
-        <Container className='my-5'>
+        <Container className='py-5'>
             <Card >
                 <Card.Content style={{margin: '2rem 0', paddingBottom:'0'}}>
                     <Row className='d-flex'>

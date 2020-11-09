@@ -2,9 +2,9 @@
   width: 100% !important;
   overflow: hidden !important;
 }
-.seg {
+/* .seg {
   margin-top: 3rem !important;
-}
+} */
 .App {
   background-color: #2f7ca4!important;
   min-height: 100vh;
