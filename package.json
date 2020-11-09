@@ -19,10 +19,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "purifycss build/static/css/*.css build/index.html build/static/js/*.js --min --info --out build/static/css",
-    "test": "craco test",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
