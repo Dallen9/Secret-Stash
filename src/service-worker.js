@@ -66,8 +66,8 @@ registerRoute(
   })
 );
 registerRoute(
-  ({request}) => request.destination === 'script' ||
-                  request.destination === 'style',
+  ({url}) => url.origin === self.location.origin &&
+             url.pathname.startsWith('/static/'),
   new StaleWhileRevalidate({
     cacheName: 'static-resources',
     plugins: [
