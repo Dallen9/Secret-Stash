@@ -1,15 +1,16 @@
 const purgecss = require('@fullhuman/postcss-purgecss');
+const purify = require("purify-css")
 
 module.exports = {
   style: {
     postcss: {
       plugins: [
-        purgecss({
-          content: ['./src/**/*.html', './src/**/*.jsx', './src/**/*.js'],
-          css: ['./src/App.css'],
-          safelist: ['button', 'segment', 'seg', 'card', 'a', 
-          'body', 'h1', 'h2', 'h3', 'container', 'color', 'style', 'i', 'input', 'form' ]
-        }),
+        purify ({
+        })const htmlFiles = ['./src/**/*.html', './src/**/*.jsx', './src/**/*.js']
+        // purgecss({
+        //   content: ['./src/**/*.html', './src/**/*.jsx', './src/**/*.js'],
+        //   safelist: []
+        // }),
       ],
     },
   },

@@ -20,8 +20,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
-    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css",
+    "build": "react-scripts build",
+    "postbuild": "purifycss build/static/css/*.css build/index.html build/static/js/*.js --min --info --out build/static/css",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
